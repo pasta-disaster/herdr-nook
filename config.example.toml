@@ -1,0 +1,34 @@
+# Nook plugin configuration
+# Place this file at ~/.config/herdr/plugins/config/nook/config.toml (or ~/.config/herdr/nook.toml)
+#
+# Custom popup dimensions can be configured per action:
+#
+#   [toggle]
+#   width = "80%"
+#   height = "80%"
+#
+#   [toggle-small]
+#   width = "70%"
+#   height = "30%"
+#
+# Dimensions accept percentage strings (e.g. "80%") or explicit cell counts (e.g. 100, 30).
+# If omitted, dimensions fall back to defaults (80% x 80% for toggle, 70% x 30% for toggle-small).
+#
+# In ~/.config/herdr/config.toml, bind the actions cleanly without warnings:
+#
+#   [[keys.command]]
+#   key = "ctrl+/"
+#   type = "plugin_action"
+#   command = "nook.toggle"
+#
+#   [[keys.command]]
+#   key = "ctrl+shift+/"
+#   type = "plugin_action"
+#   command = "nook.toggle-small"
+#
+# The popup runs your login shell ($SHELL) inside a persistent tmux session.
+# The shell used is $SHELL (falling back to bash, then sh). To use a different shell,
+# set SHELL in your environment before launching herdr.
+#
+# Sessions run on a private tmux server (socket name "nook"), isolated from any
+# tmux you use yourself. Inspect them with:  tmux -L nook list-sessions

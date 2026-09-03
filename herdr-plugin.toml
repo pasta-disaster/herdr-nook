@@ -1,0 +1,40 @@
+id = "nook"
+name = "Nook"
+version = "4.1.0"
+min_herdr_version = "0.7.5"
+platforms = ["linux", "macos"]
+description = "A per-workspace floating shell you summon with one key. It persists in the background when hidden and resumes exactly where you left off."
+
+# The panel pane entrypoint: a floating popup running a persistent tmux-backed shell
+# for the current workspace. Default size is 80% x 80%, customizable per keybinding in
+# config.toml. The command runs in the popup's cwd (the user's focused directory, passed
+# via --cwd), not the plugin root, so the session manager is invoked by absolute path
+# under HERDR_PLUGIN_ROOT.
+[[panes]]
+id = "panel"
+title = "Nook"
+placement = "popup"
+width = "80%"
+height = "80%"
+command = ["sh", "-c", "exec bash \"$HERDR_PLUGIN_ROOT/scripts/dialog.sh\""]
+
+# Toggle the popup: open (or reattach) it. Hiding is done inside the popup with Ctrl+/,
+# which tmux catches as detach, so the session keeps running and the next toggle resumes.
+[[actions]]
+id = "toggle"
+title = "Nook: toggle"
+contexts = ["pane", "workspace"]
+command = ["bash", "scripts/panel.sh", "toggle"]
+
+# Toggle the smaller popup size (customizable via plugin config).
+[[actions]]
+id = "toggle-small"
+title = "Nook: toggle (small)"
+contexts = ["pane", "workspace"]
+command = ["bash", "scripts/panel.sh", "toggle-small"]
+
+[[actions]]
+id = "toggle-tiny"
+title = "Nook: toggle (tiny)"
+contexts = ["pane", "workspace"]
+command = ["bash", "scripts/panel.sh", "toggle-tiny"]
